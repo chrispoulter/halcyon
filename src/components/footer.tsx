@@ -1,4 +1,5 @@
 import { TextLink } from '@/components/text-link';
+import { ModeToggle } from '@/components/mode-toggle';
 import { currentYear } from '@/lib/dates';
 import { config } from '@/lib/config';
 
@@ -11,6 +12,8 @@ export const Footer = () => (
             </TextLink>{' '}
             {currentYear}
         </p>
-        <p>v{config.VERSION}</p>
+        <p>
+            v{config.VERSION} <ModeToggle />
+        </p>
     </footer>
 );

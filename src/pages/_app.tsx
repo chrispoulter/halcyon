@@ -12,6 +12,7 @@ import {
 } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import toast from 'react-hot-toast';
+import { ThemeProvider } from 'next-themes';
 import { Meta } from '@/components/meta';
 import { Header } from '@/components/header';
 import ErrorBoundary from '@/components/error-boundary';
@@ -112,13 +113,20 @@ const App = ({
             <SessionProvider session={session}>
                 <QueryClientProvider client={queryClient}>
                     <HydrationBoundary state={dehydratedState}>
-                        <Header />
-                        <main>
-                            <ErrorBoundary>
-                                <Component {...pageProps} />
-                            </ErrorBoundary>
-                        </main>
-                        <Footer />
+                        <ThemeProvider
+                            attribute="class"
+                            defaultTheme="system"
+                            enableSystem
+                            disableTransitionOnChange
+                        >
+                            <Header />
+                            <main>
+                                <ErrorBoundary>
+                                    <Component {...pageProps} />
+                                </ErrorBoundary>
+                            </main>
+                            <Footer />
+                        </ThemeProvider>
                     </HydrationBoundary>
                     <ReactQueryDevtools initialIsOpen={false} />
                 </QueryClientProvider>
