@@ -1,5 +1,4 @@
 import { useRouter } from 'next/router';
-import toast from 'react-hot-toast';
 import { Meta } from '@/components/meta';
 import { Container } from '@/components/container';
 import { Title } from '@/components/title';
@@ -8,10 +7,13 @@ import {
     ResetPasswordFormValues
 } from '@/features/account/components/reset-password-form';
 import { useResetPassword } from '@/features/account/hooks/use-reset-password';
+import { useToast } from '@/hooks/use-toast';
 
 const ResetPasswordPage = () => {
     const router = useRouter();
     const token = router.query.token as string;
+
+    const { toast } = useToast();
 
     const { mutate, isPending } = useResetPassword();
 
@@ -23,7 +25,7 @@ const ResetPasswordPage = () => {
             },
             {
                 onSuccess: async () => {
-                    toast.success('Your password has been reset.');
+                    toast({ description: 'Your password has been reset.' });
                     return router.push('/account/login');
                 }
             }

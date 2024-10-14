@@ -1,7 +1,6 @@
 import { GetServerSideProps } from 'next';
 import { useRouter } from 'next/router';
 import { dehydrate, QueryClient } from '@tanstack/react-query';
-import toast from 'react-hot-toast';
 import { Meta } from '@/components/meta';
 import { Container } from '@/components/container';
 import { Title } from '@/components/title';
@@ -15,10 +14,13 @@ import {
     useGetProfile
 } from '@/features/profile/hooks/use-get-profile';
 import { useUpdateProfile } from '@/features/profile/hooks/use-update-profile';
+import { useToast } from '@/hooks/use-toast';
 import { auth } from '@/lib/auth';
 
 const UpdateProfilePage = () => {
     const router = useRouter();
+
+    const { toast } = useToast();
 
     const { data } = useGetProfile();
 
@@ -31,7 +33,7 @@ const UpdateProfilePage = () => {
             { ...values, version },
             {
                 onSuccess: async () => {
-                    toast.success('Your profile has been updated.');
+                    toast({ description: 'Your profile has been updated.' });
                     return router.push('/profile');
                 }
             }

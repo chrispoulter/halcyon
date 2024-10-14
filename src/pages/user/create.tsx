@@ -1,5 +1,4 @@
 import { useRouter } from 'next/router';
-import toast from 'react-hot-toast';
 import { Meta } from '@/components/meta';
 import { Container } from '@/components/container';
 import { Title, SubTitle } from '@/components/title';
@@ -9,16 +8,19 @@ import {
     CreateUserFormValues
 } from '@/features/user/components/create-user-form';
 import { useCreateUser } from '@/features/user/hooks/use-create-user';
+import { useToast } from '@/hooks/use-toast';
 
 const CreateUserPage = () => {
     const router = useRouter();
+
+    const { toast } = useToast();
 
     const { mutate, isPending } = useCreateUser();
 
     const onSubmit = (values: CreateUserFormValues) =>
         mutate(values, {
             onSuccess: async () => {
-                toast.success('User successfully created.');
+                toast({ description: 'User successfully created.' });
                 return router.push('/user');
             }
         });

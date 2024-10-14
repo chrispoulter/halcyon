@@ -1,6 +1,5 @@
 import { useRouter } from 'next/router';
 import { signIn } from 'next-auth/react';
-import toast from 'react-hot-toast';
 import { Meta } from '@/components/meta';
 import { Container } from '@/components/container';
 import { Title } from '@/components/title';
@@ -9,9 +8,12 @@ import {
     LoginForm,
     LoginFormValues
 } from '@/features/account/components/login-form';
+import { useToast } from '@/hooks/use-toast';
 
 const LoginPage = () => {
     const router = useRouter();
+
+    const { toast } = useToast();
 
     const onSubmit = async (values: LoginFormValues) => {
         const signInResult = await signIn('credentials', {
@@ -24,7 +26,10 @@ const LoginPage = () => {
             return router.push(signInResult.url!);
         }
 
-        return toast.error('The credentials provided were invalid.');
+        return toast({
+            variant: 'destructive',
+            description: 'The credentials provided were invalid.'
+        });
     };
 
     return (

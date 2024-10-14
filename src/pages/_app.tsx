@@ -11,13 +11,13 @@ import {
     QueryClientProvider
 } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
-import toast from 'react-hot-toast';
 import { ThemeProvider } from 'next-themes';
+import { Toaster } from '@/components/ui/toaster';
 import { Meta } from '@/components/meta';
 import { Header } from '@/components/header';
 import ErrorBoundary from '@/components/error-boundary';
 import { Footer } from '@/components/footer';
-import { Toaster } from '@/components/toast';
+import { toast } from '@/hooks/use-toast';
 import { FetchError } from '@/lib/fetch';
 
 import '@/styles/globals.css';
@@ -75,27 +75,35 @@ const App = ({
                                     });
 
                                 case 403:
-                                    return toast.error(
-                                        'Sorry, you do not have access to this resource.'
-                                    );
+                                    return toast({
+                                        variant: 'destructive',
+                                        description:
+                                            'Sorry, you do not have access to this resource.'
+                                    });
 
                                 case 404:
-                                    return toast.error(
-                                        'Sorry, the resource you were looking for could not be found.'
-                                    );
+                                    return toast({
+                                        variant: 'destructive',
+                                        description:
+                                            'Sorry, the resource you were looking for could not be found.'
+                                    });
 
                                 default:
-                                    return toast.error(
-                                        message ||
+                                    return toast({
+                                        variant: 'destructive',
+                                        description:
+                                            message ||
                                             'Sorry, something went wrong. Please try again later.'
-                                    );
+                                    });
                             }
                         }
 
-                        return toast.error(
-                            error.message ||
+                        return toast({
+                            variant: 'destructive',
+                            description:
+                                error.message ||
                                 'Sorry, something went wrong. Please try again later.'
-                        );
+                        });
                     }
                 })
             })

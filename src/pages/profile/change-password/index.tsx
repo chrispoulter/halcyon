@@ -1,7 +1,6 @@
 import { GetServerSideProps } from 'next';
 import { useRouter } from 'next/router';
 import { dehydrate, QueryClient } from '@tanstack/react-query';
-import toast from 'react-hot-toast';
 import { Meta } from '@/components/meta';
 import { Container } from '@/components/container';
 import { Title } from '@/components/title';
@@ -16,10 +15,13 @@ import {
     useGetProfile
 } from '@/features/profile/hooks/use-get-profile';
 import { useChangePassword } from '@/features/profile/hooks/use-change-password';
+import { useToast } from '@/hooks/use-toast';
 import { auth } from '@/lib/auth';
 
 const ChangePasswordPage = () => {
     const router = useRouter();
+
+    const { toast } = useToast();
 
     const { data } = useGetProfile();
 
@@ -32,7 +34,7 @@ const ChangePasswordPage = () => {
             { ...values, version },
             {
                 onSuccess: async () => {
-                    toast.success('Your password has been changed.');
+                    toast({ description: 'Your password has been changed.' });
                     return router.push('/profile');
                 }
             }

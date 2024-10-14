@@ -1,7 +1,6 @@
 import { GetServerSideProps } from 'next';
 import { useRouter } from 'next/router';
 import { dehydrate, QueryClient } from '@tanstack/react-query';
-import toast from 'react-hot-toast';
 import { Meta } from '@/components/meta';
 import { Container } from '@/components/container';
 import { SubTitle, Title } from '@/components/title';
@@ -18,11 +17,14 @@ import { useUpdateUser } from '@/features/user/hooks/use-update-user';
 import { useLockUser } from '@/features/user/hooks/use-lock-user';
 import { useUnlockUser } from '@/features/user/hooks/use-unlock-user';
 import { useDeleteUser } from '@/features/user/hooks/use-delete-user';
+import { useToast } from '@/hooks/use-toast';
 import { auth } from '@/lib/auth';
 
 const UpdateUserPage = () => {
     const router = useRouter();
     const id = router.query.id as string;
+
+    const { toast } = useToast();
 
     const { data, isFetching } = useGetUser(id, router.isReady);
 
@@ -41,7 +43,7 @@ const UpdateUserPage = () => {
             { ...values, version },
             {
                 onSuccess: async () => {
-                    toast.success('User successfully updated.');
+                    toast({ description: 'User successfully updated.' });
                     return router.push('/user');
                 }
             }
@@ -52,7 +54,7 @@ const UpdateUserPage = () => {
             { version },
             {
                 onSuccess: async () => {
-                    toast.success('User successfully deleted.');
+                    toast({ description: 'User successfully deleted.' });
                     return router.push('/user');
                 }
             }
@@ -62,7 +64,8 @@ const UpdateUserPage = () => {
         lockUser(
             { version },
             {
-                onSuccess: () => toast.success('User successfully locked.')
+                onSuccess: () =>
+                    toast({ description: 'User successfully locked.' })
             }
         );
 
@@ -70,7 +73,8 @@ const UpdateUserPage = () => {
         unlockUser(
             { version },
             {
-                onSuccess: () => toast.success('User successfully unlocked.')
+                onSuccess: () =>
+                    toast({ description: 'User successfully unlocked.' })
             }
         );
 

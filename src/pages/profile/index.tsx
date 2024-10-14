@@ -1,7 +1,6 @@
 import { GetServerSideProps } from 'next';
 import { signOut } from 'next-auth/react';
 import { dehydrate, QueryClient } from '@tanstack/react-query';
-import toast from 'react-hot-toast';
 import { Meta } from '@/components/meta';
 import { Container } from '@/components/container';
 import { Title } from '@/components/title';
@@ -13,9 +12,12 @@ import {
     useGetProfile
 } from '@/features/profile/hooks/use-get-profile';
 import { useDeleteAccount } from '@/features/profile/hooks/use-delete-account';
+import { useToast } from '@/hooks/use-toast';
 import { auth } from '@/lib/auth';
 
 const ProfilePage = () => {
+    const { toast } = useToast();
+
     const { data } = useGetProfile();
 
     const version = data?.version;
@@ -27,7 +29,7 @@ const ProfilePage = () => {
             { version },
             {
                 onSuccess: async () => {
-                    toast.success('Your account has been deleted.');
+                    toast({ description: 'Your account has been deleted.' });
                     await signOut({ callbackUrl: '/' });
                 }
             }

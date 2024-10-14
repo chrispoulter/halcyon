@@ -1,5 +1,4 @@
 import { useRouter } from 'next/router';
-import toast from 'react-hot-toast';
 import { Meta } from '@/components/meta';
 import { Container } from '@/components/container';
 import { Title } from '@/components/title';
@@ -8,9 +7,12 @@ import {
     ForgotPasswordFormValues
 } from '@/features/account/components/forgot-password-form';
 import { useForgotPassword } from '@/features/account/hooks/use-forgot-password';
+import { useToast } from '@/hooks/use-toast';
 
 const ForgotPasswordPage = () => {
     const router = useRouter();
+
+    const { toast } = useToast();
 
     const { mutate, isPending } = useForgotPassword();
 
@@ -22,9 +24,10 @@ const ForgotPasswordPage = () => {
             },
             {
                 onSuccess: async () => {
-                    toast.success(
-                        'Instructions as to how to reset your password have been sent to you via email.'
-                    );
+                    toast({
+                        description:
+                            'Instructions as to how to reset your password have been sent to you via email.'
+                    });
 
                     return router.push('/account/login');
                 }
