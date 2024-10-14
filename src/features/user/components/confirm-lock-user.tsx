@@ -1,7 +1,16 @@
 import { useState } from 'react';
-import { Modal, ModalBody, ModalTitle } from '@/components/modal';
-import { ButtonGroup } from '@/components/button-group';
-import { Button } from '@/components/button';
+import {
+    AlertDialog,
+    AlertDialogAction,
+    AlertDialogCancel,
+    AlertDialogContent,
+    AlertDialogDescription,
+    AlertDialogFooter,
+    AlertDialogHeader,
+    AlertDialogTitle,
+    AlertDialogTrigger
+} from '@/components/ui/alert-dialog';
+import { Button } from '@/components/ui/button';
 
 type ConfirmLockUserProps = {
     onConfirm: () => void;
@@ -17,40 +26,30 @@ export const ConfirmLockUser = ({
     const [isOpen, setIsOpen] = useState(false);
 
     const onOk = () => {
-        onClose();
+        setIsOpen(false);
         onConfirm();
     };
 
-    const onOpen = () => setIsOpen(true);
-
-    const onClose = () => setIsOpen(false);
-
     return (
-        <>
-            <Button
-                onClick={onOpen}
-                variant="warning"
-                loading={loading}
-                disabled={disabled}
-            >
-                Lock
-            </Button>
-
-            <Modal open={isOpen} onClose={onClose}>
-                <ModalTitle>Lock User</ModalTitle>
-                <ModalBody>
-                    Are you sure you want to lock this user account? The user
-                    will no longer be able to access the system.
-                </ModalBody>
-                <ButtonGroup>
-                    <Button variant="secondary" onClick={onClose}>
-                        Cancel
-                    </Button>
-                    <Button variant="warning" onClick={onOk}>
-                        Lock
-                    </Button>
-                </ButtonGroup>
-            </Modal>
-        </>
+        <AlertDialog open={isOpen} onOpenChange={setIsOpen}>
+            <AlertDialogTrigger asChild>
+                <Button variant="outline" disabled={loading || disabled}>
+                    Lock
+                </Button>
+            </AlertDialogTrigger>
+            <AlertDialogContent>
+                <AlertDialogHeader>
+                    <AlertDialogTitle>Lock User</AlertDialogTitle>
+                    <AlertDialogDescription>
+                        Are you sure you want to lock this user account? The
+                        user will no longer be able to access the system.
+                    </AlertDialogDescription>
+                </AlertDialogHeader>
+                <AlertDialogFooter>
+                    <AlertDialogCancel>Cancel</AlertDialogCancel>
+                    <AlertDialogAction onClick={onOk}>Lock</AlertDialogAction>
+                </AlertDialogFooter>
+            </AlertDialogContent>
+        </AlertDialog>
     );
 };

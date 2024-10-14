@@ -1,7 +1,16 @@
 import { useState } from 'react';
-import { Modal, ModalBody, ModalTitle } from '@/components/modal';
-import { ButtonGroup } from '@/components/button-group';
-import { Button } from '@/components/button';
+import {
+    AlertDialog,
+    AlertDialogAction,
+    AlertDialogCancel,
+    AlertDialogContent,
+    AlertDialogDescription,
+    AlertDialogFooter,
+    AlertDialogHeader,
+    AlertDialogTitle,
+    AlertDialogTrigger
+} from '@/components/ui/alert-dialog';
+import { Button } from '@/components/ui/button';
 
 type ConfirmDeleteAccountProps = {
     onConfirm: () => void;
@@ -17,41 +26,31 @@ export const ConfirmDeleteAccount = ({
     const [isOpen, setIsOpen] = useState(false);
 
     const onOk = () => {
-        onClose();
+        setIsOpen(false);
         onConfirm();
     };
 
-    const onOpen = () => setIsOpen(true);
-
-    const onClose = () => setIsOpen(false);
-
     return (
-        <>
-            <Button
-                onClick={onOpen}
-                variant="danger"
-                loading={loading}
-                disabled={disabled}
-            >
-                Delete Account
-            </Button>
-
-            <Modal open={isOpen} onClose={onClose}>
-                <ModalTitle>Delete Account</ModalTitle>
-                <ModalBody>
-                    Are you sure you want to delete your account? All of your
-                    data will be permanently removed. This action cannot be
-                    undone.
-                </ModalBody>
-                <ButtonGroup>
-                    <Button variant="secondary" onClick={onClose}>
-                        Cancel
-                    </Button>
-                    <Button variant="danger" onClick={onOk}>
-                        Delete
-                    </Button>
-                </ButtonGroup>
-            </Modal>
-        </>
+        <AlertDialog open={isOpen} onOpenChange={setIsOpen}>
+            <AlertDialogTrigger asChild>
+                <Button variant="destructive" disabled={loading || disabled}>
+                    Delete Account
+                </Button>
+            </AlertDialogTrigger>
+            <AlertDialogContent>
+                <AlertDialogHeader>
+                    <AlertDialogTitle>Delete Account</AlertDialogTitle>
+                    <AlertDialogDescription>
+                        Are you sure you want to delete your account? All of
+                        your data will be permanently removed. This action
+                        cannot be undone.
+                    </AlertDialogDescription>
+                </AlertDialogHeader>
+                <AlertDialogFooter>
+                    <AlertDialogCancel>Cancel</AlertDialogCancel>
+                    <AlertDialogAction onClick={onOk}>Delete</AlertDialogAction>
+                </AlertDialogFooter>
+            </AlertDialogContent>
+        </AlertDialog>
     );
 };
