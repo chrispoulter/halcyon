@@ -1,6 +1,11 @@
-import { Button } from '@/components/button';
-import { ButtonGroup } from '@/components/button-group';
 import { ButtonGroupSkeleton } from '@/components/button-group-skeleton';
+import {
+    Pagination,
+    PaginationContent,
+    PaginationItem,
+    PaginationPrevious,
+    PaginationNext
+} from './ui/pagination';
 
 type PagerProps = {
     isLoading?: boolean;
@@ -28,25 +33,27 @@ export const Pager = ({
     }
 
     return (
-        <ButtonGroup>
-            {hasPreviousPage && (
-                <Button
-                    variant="secondary"
-                    disabled={isFetching}
-                    onClick={onPreviousPage}
-                >
-                    Previous
-                </Button>
-            )}
-            {hasNextPage && (
-                <Button
-                    variant="secondary"
-                    disabled={isFetching}
-                    onClick={onNextPage}
-                >
-                    Next
-                </Button>
-            )}
-        </ButtonGroup>
+        <Pagination>
+            <PaginationContent>
+                {hasPreviousPage && (
+                    <PaginationItem>
+                        <PaginationPrevious
+                            href="#"
+                            onClick={onPreviousPage}
+                            aria-disabled={isFetching}
+                        />
+                    </PaginationItem>
+                )}
+                {hasNextPage && (
+                    <PaginationItem>
+                        <PaginationNext
+                            href="#"
+                            onClick={onNextPage}
+                            aria-disabled={isFetching}
+                        />
+                    </PaginationItem>
+                )}
+            </PaginationContent>
+        </Pagination>
     );
 };
