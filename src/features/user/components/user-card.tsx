@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { Badge } from '@/components/badge';
+import { Badge } from '@/components/ui/badge';
 import { SearchUserResponse } from '@/features/user/user-types';
 import { roles } from '@/lib/roles';
 
@@ -35,7 +35,9 @@ export const UserCard = ({ user }: UserCardProps) => {
             </h2>
             {(user.isLockedOut || (user.roles && user.roles.length > 0)) && (
                 <div className="mt-3 flex flex-col flex-wrap gap-1 sm:flex-row">
-                    {user.isLockedOut && <Badge variant="danger">Locked</Badge>}
+                    {user.isLockedOut && (
+                        <Badge variant="destructive">Locked</Badge>
+                    )}
                     {user.roles?.map(role => (
                         <Badge key={role}>{roles[role].title}</Badge>
                     ))}

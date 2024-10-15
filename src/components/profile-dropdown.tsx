@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { useSession, signOut } from 'next-auth/react';
 import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react';
-import { Badge } from '@/components/badge';
+import { Badge } from '@/components/ui/badge';
 import { roles } from '@/lib/roles';
 
 export const ProfileDropdown = () => {
@@ -38,7 +38,10 @@ export const ProfileDropdown = () => {
                         {user.roles && (
                             <div className="mt-3 flex flex-col gap-1">
                                 {user.roles?.map(role => (
-                                    <Badge key={role}>
+                                    <Badge
+                                        key={role}
+                                        className="justify-center"
+                                    >
                                         {roles[role].title}
                                     </Badge>
                                 ))}

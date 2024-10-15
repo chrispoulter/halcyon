@@ -1,11 +1,11 @@
-import { ButtonGroupSkeleton } from '@/components/button-group-skeleton';
 import {
     Pagination,
     PaginationContent,
     PaginationItem,
     PaginationPrevious,
     PaginationNext
-} from './ui/pagination';
+} from '@/components/ui/pagination';
+import { ButtonGroupSkeleton } from '@/components/button-group-skeleton';
 
 type PagerProps = {
     isLoading?: boolean;
