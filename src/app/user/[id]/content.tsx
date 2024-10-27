@@ -23,7 +23,7 @@ type UpdateUserContentProps = { id: string };
 export default function UpdateUserContent({ id }: UpdateUserContentProps) {
     const router = useRouter();
 
-    const { data, isFetching } = useGetUser(id);
+    const { data, isFetching } = useGetUser(id, true);
 
     const version = data?.version;
 
