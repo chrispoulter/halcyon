@@ -1,58 +1,10 @@
-'use client';
+import { Metadata } from 'next';
+import RegisterContent from './content';
 
-// import { Metadata } from 'next';
-import { useRouter } from 'next/navigation';
-import { signIn } from 'next-auth/react';
-import toast from 'react-hot-toast';
-import { Container } from '@/components/container';
-import { Title } from '@/components/title';
-import { TextLink } from '@/components/text-link';
-import {
-    RegisterForm,
-    RegisterFormValues
-} from '@/features/account/components/register-form';
-import { useRegister } from '@/features/account/hooks/use-register';
-
-// export const metadata: Metadata = {
-//     title: 'Register'
-// };
+export const metadata: Metadata = {
+    title: 'Register'
+};
 
 export default function RegisterPage() {
-    const router = useRouter();
-
-    const { mutate, isPending } = useRegister();
-
-    const onSubmit = (values: RegisterFormValues) =>
-        mutate(values, {
-            onSuccess: async () => {
-                toast.success('User successfully registered.');
-
-                const signInResult = await signIn('credentials', {
-                    ...values,
-                    redirect: false
-                });
-
-                if (!signInResult?.error) {
-                    return router.push('/');
-                }
-
-                return toast.error('The credentials provided were invalid.');
-            }
-        });
-
-    return (
-        <Container>
-            <Title>Register</Title>
-            <RegisterForm
-                isLoading={isPending}
-                onSubmit={onSubmit}
-                className="mb-5"
-            />
-
-            <p className="text-sm text-gray-600">
-                Already have an account?{' '}
-                <TextLink href="/account/login">Log in now</TextLink>
-            </p>
-        </Container>
-    );
+    return <RegisterContent />;
 }
