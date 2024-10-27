@@ -1,3 +1,5 @@
+'use client';
+
 import Link from 'next/link';
 import { useSession, signOut } from 'next-auth/react';
 import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react';

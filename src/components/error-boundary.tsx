@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
-import ErrorPage from '@/pages/500';
+import ErrorPage from '@/app/error';
 
 type ErrorBoundaryProps = React.PropsWithChildren<{
     hasError: boolean;

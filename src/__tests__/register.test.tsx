@@ -5,7 +5,7 @@ import { randomUUID } from 'crypto';
 import { queryWrapper } from '@/__tests__/test-utils';
 import { UpdatedResponse } from '@/features/common/common-types';
 import { RegisterFormValues } from '@/features/account/components/register-form';
-import RegisterPage from '@/pages/account/register';
+import RegisterPage from '@/app/account/register/page';
 
 const fillRegisterForm = (
     values: Omit<RegisterFormValues, 'confirmPassword'>

@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest';
 import { fireEvent, render, screen } from '@testing-library/react';
 import mockRouter from 'next-router-mock';
 import { MemoryRouterProvider } from 'next-router-mock/MemoryRouterProvider';
-import HomePage from '@/pages/index';
+import HomePage from '@/app/page';
 
 describe('home page', () => {
     it('should render a heading', () => {

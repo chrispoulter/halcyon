@@ -7,7 +7,7 @@ import {
 import { randomUUID } from 'crypto';
 import { queryWrapper } from '@/__tests__/test-utils';
 import { GetProfileResponse } from '@/features/profile/profile-types';
-import ProfilePage from '@/pages/profile';
+import ProfilePage from '@/app/profile/page';
 
 const response: GetProfileResponse = {
     id: 'user-1',

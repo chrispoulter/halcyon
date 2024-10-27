@@ -1,3 +1,5 @@
+'use client';
+
 import rht, { resolveValue, useToaster } from 'react-hot-toast';
 import { CloseIcon } from '@/components/close-icon';
 import { cn } from '@/lib/utils';
