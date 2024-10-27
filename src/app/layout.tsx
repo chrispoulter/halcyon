@@ -1,7 +1,6 @@
 import type { Metadata, Viewport } from 'next';
 import { Open_Sans } from 'next/font/google';
-import { AuthProvider } from '@/components/auth-provider';
-import { QueryProvider } from '@/components/query-provider';
+import Providers from '@/components/providers';
 import { Header } from '@/components/header';
 import { Footer } from '@/components/footer';
 import { Toaster } from '@/components/toast';
@@ -36,13 +35,11 @@ export default function RootLayout({ children }: React.PropsWithChildren) {
     return (
         <html lang="en" className={openSans.variable}>
             <body>
-                <AuthProvider>
-                    <QueryProvider>
-                        <Header />
-                        <main>{children}</main>
-                        <Footer />
-                    </QueryProvider>
-                </AuthProvider>
+                <Providers>
+                    <Header />
+                    <main>{children}</main>
+                    <Footer />
+                </Providers>
                 <Toaster />
             </body>
         </html>
