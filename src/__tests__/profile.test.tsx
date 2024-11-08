@@ -1,9 +1,5 @@
 import { describe, expect, it, vi } from 'vitest';
-import {
-    render,
-    screen,
-    waitForElementToBeRemoved
-} from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import { randomUUID } from 'crypto';
 import { queryWrapper } from '@/__tests__/test-utils';
 import { GetProfileResponse } from '@/features/profile/profile-types';
@@ -28,10 +24,10 @@ global.fetch = vi.fn().mockResolvedValueOnce({
 
 describe('profile page', () => {
     it('should render personal details', async () => {
-        render(<ProfilePage />, { wrapper: queryWrapper });
+        render(await ProfilePage(), { wrapper: queryWrapper });
 
-        const loading = screen.getAllByText(/loading/i);
-        await waitForElementToBeRemoved(loading);
+        // const loading = screen.getAllByText(/loading/i);
+        // await waitForElementToBeRemoved(loading);
 
         const emailAddress = screen.getByText(response.emailAddress);
         expect(emailAddress).toBeDefined();
